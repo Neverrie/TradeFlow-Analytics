@@ -13,7 +13,7 @@ DB_PASS = os.getenv('DB_PASSWORD')
 DATA_MODE = os.getenv('DATA_MODE', 'REAL')
 
 TOP_N_STOCKS = 20           # Размер топа акций
-REFRESH_INTERVAL_SEC = 100 # Интервал обновления списка 
+REFRESH_INTERVAL_SEC = 3600 # Интервал обновления списка 
 
 # Глобальное состояние
 WATCHLIST = []      # Текущий список тикеров
@@ -143,10 +143,10 @@ def get_real_prices_batch():
         return None
 
 def preload_history_data(conn):
-    print("Предзагрузка истории торгов за последний час...")
+    print("Предзагрузка истории торгов за последние 3 часа...")
     cursor = conn.cursor()
-    
-    start_time = datetime.now() - timedelta(hours=1)
+
+    start_time = datetime.now() - timedelta(hours=3)
     start_str = start_time.strftime('%Y-%m-%d %H:%M:%S')
     
     total_records = 0
@@ -172,7 +172,7 @@ def preload_history_data(conn):
 
             if not has_real_data:
                 current_price = MEMORY_PRICES.get(symbol, 150.0)
-                for i in range(60, 0, -1):
+                for i in range(180, 0, -1):
                     fake_ts = datetime.now() - timedelta(minutes=i)
                     change = random.uniform(-0.002, 0.002)
                     current_price = current_price * (1 - change) 
@@ -190,8 +190,10 @@ def preload_history_data(conn):
             continue
 
     conn.commit()
-    print(f"История загружена: добавлено {total_records} записей.")
-    
+    print(f" История загружена: добавлено {total_records} записей.")
+
+
+
 def check_market_open():
     if DATA_MODE != "REAL": return
     
@@ -261,7 +263,7 @@ def main():
              current_price = MEMORY_PRICES[first_ticker]
              print(f"Пакет обработан. {first_ticker}: {current_price:.2f}")
 
-        time.sleep(1)
+        time.sleep(60)
 
 if __name__ == "__main__":
     main()
