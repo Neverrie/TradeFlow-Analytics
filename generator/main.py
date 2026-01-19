@@ -257,7 +257,7 @@ def main():
             )
 
 
-        if WATCHLIST and random.random() < 0.1: 
+        if WATCHLIST: 
              first_ticker = WATCHLIST[0]
              src = "MOEX" if real_data.get(first_ticker) else "SIM"
              current_price = MEMORY_PRICES[first_ticker]
