@@ -3,9 +3,9 @@ import time
 import random
 import requests
 import psycopg2
-from datetime import datetime
+from datetime import datetime, timedelta
 
-DB_HOST = os.getenv('DB_HOST', 'posgres')
+DB_HOST = os.getenv('DB_HOST', 'postgres')
 DB_NAME = os.getenv('DB_NAME')
 DB_USER = os.getenv('DB_USER')
 DB_PASS = os.getenv('DB_PASSWORD')
@@ -76,8 +76,6 @@ def init_market_data(conn):
             ticker = row[idx_m_secid]
             price = row[idx_m_last]
             volume = row[idx_m_val]
-            
-            # Отбираем только инструменты с ценой и объемом
             if price is not None and volume is not None:
                 candidates.append({
                     'ticker': ticker, 
@@ -86,7 +84,6 @@ def init_market_data(conn):
                     'name': names_map.get(ticker, ticker)
                 })
         
-        # Сортировка по объему торгов (от большего к меньшему)
         candidates.sort(key=lambda x: x['volume'], reverse=True)
         top_stocks = candidates[:TOP_N_STOCKS]
         
@@ -137,15 +134,63 @@ def get_real_prices_batch():
             status = row[idx_status]
             price = row[idx_last]
             
-            # Цена считается валидной, только если идут торги (статус T)
             if status == 'T' and price is not None:
                 result[ticker] = float(price)
             else:
                 result[ticker] = None
         return result
     except Exception as e:
-        print(f"Ошибка запроса к API: {e}")
         return None
+
+def preload_history_data(conn):
+    print("Предзагрузка истории торгов за последний час...")
+    cursor = conn.cursor()
+    
+    start_time = datetime.now() - timedelta(hours=1)
+    start_str = start_time.strftime('%Y-%m-%d %H:%M:%S')
+    
+    total_records = 0
+    
+    for symbol in WATCHLIST:
+        records_to_insert = []
+        try:
+            has_real_data = False
+            
+            if DATA_MODE == "REAL":
+                url = f"https://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR/securities/{symbol}/candles.json?from={start_str}&interval=1"
+                resp = requests.get(url, timeout=1)
+                if resp.status_code == 200:
+                    candles = resp.json()['candles']['data']
+                    if candles:
+                        has_real_data = True
+                        for c in candles:
+                            price = float(c[1]) 
+                            vol = int(c[5]) if c[5] else random.randint(1, 50)
+                            ts = datetime.strptime(c[6], "%Y-%m-%d %H:%M:%S")
+                            
+                            records_to_insert.append((symbol, price, vol, price*vol, ts))
+
+            if not has_real_data:
+                current_price = MEMORY_PRICES.get(symbol, 150.0)
+                for i in range(60, 0, -1):
+                    fake_ts = datetime.now() - timedelta(minutes=i)
+                    change = random.uniform(-0.002, 0.002)
+                    current_price = current_price * (1 - change) 
+                    
+                    qty = random.randint(1, 50)
+                    records_to_insert.append((symbol, current_price, qty, current_price*qty, fake_ts))
+
+            if records_to_insert:
+                args_str = ','.join(cursor.mogrify("(%s,%s,%s,%s,%s)", x).decode('utf-8') for x in records_to_insert)
+                cursor.execute("INSERT INTO trades (symbol, price, quantity, total_cost, timestamp) VALUES " + args_str)
+                total_records += len(records_to_insert)
+
+        except Exception as e:
+            print(f"Ошибка прелоада для {symbol}: {e}")
+            continue
+
+    conn.commit()
+    print(f"История загружена: добавлено {total_records} записей.")
     
 def check_market_open():
     if DATA_MODE != "REAL": return
@@ -175,6 +220,9 @@ def main():
 
     init_market_data(conn)
     check_market_open()
+
+    preload_history_data(conn)
+
     cursor = conn.cursor()
 
     while True:
@@ -206,11 +254,12 @@ def main():
                 (symbol, price, quantity, total_cost, datetime.now())
             )
 
+
         if WATCHLIST and random.random() < 0.1: 
-            first_ticker = WATCHLIST[0]
-            src = "MOEX" if real_data.get(first_ticker) else "SIM"
-            current_price = MEMORY_PRICES[first_ticker]
-            print(f"Пакет обработан. {first_ticker}: {current_price:.2f}")
+             first_ticker = WATCHLIST[0]
+             src = "MOEX" if real_data.get(first_ticker) else "SIM"
+             current_price = MEMORY_PRICES[first_ticker]
+             print(f"Пакет обработан. {first_ticker}: {current_price:.2f}")
 
         time.sleep(1)
 
