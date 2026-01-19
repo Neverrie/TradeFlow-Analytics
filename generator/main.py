@@ -39,11 +39,11 @@ def update_companies_table(conn, stocks_data):
             ON CONFLICT (symbol) DO NOTHING;
         """, (stock['ticker'], stock['name']))
     conn.commit()
-    print(f"Справочник компаний обновлен. Записей: {len(stocks_data)}.")
+    print(f"Справочник компаний обновлен. Записей: {len(stocks_data)}.", flush=True)
 
 def init_market_data(conn):
     global WATCHLIST, MEMORY_PRICES, LAST_REFRESH_TIME
-    print("Запрос данных с Мосбиржи (формирование Топ-20)...")
+    print("Запрос данных с Мосбиржи (формирование Топ-20)...", flush=True)
     
     url = "https://iss.moex.com/iss/engines/stock/markets/shares/boards/TQBR/securities.json"
     
@@ -94,13 +94,13 @@ def init_market_data(conn):
             MEMORY_PRICES[x['ticker']] = x['price']
         
         LAST_REFRESH_TIME = datetime.now()
-        print(f"Список отслеживания сформирован: {len(WATCHLIST)} акций.")
+        print(f"Список отслеживания сформирован: {len(WATCHLIST)} акций.", flush=True)
         return True
 
     except Exception as e:
-        print(f"Ошибка инициализации данных: {e}.")
+        print(f"Ошибка инициализации данных: {e}.", flush=True)
         if not WATCHLIST:
-            print("Внимание: Используется резервный список тикеров.")
+            print("Внимание: Используется резервный список тикеров.", flush=True)
             fallback = [
                 {'ticker': 'SBER', 'name': 'Sberbank Russia'},
                 {'ticker': 'GAZP', 'name': 'Gazprom PAO'}
@@ -143,7 +143,7 @@ def get_real_prices_batch():
         return None
 
 def preload_history_data(conn):
-    print("Предзагрузка истории торгов за последние 3 часа...")
+    print("Предзагрузка истории торгов за последние 3 часа...", flush=True)
     cursor = conn.cursor()
 
     start_time = datetime.now() - timedelta(hours=3)
@@ -186,26 +186,26 @@ def preload_history_data(conn):
                 total_records += len(records_to_insert)
 
         except Exception as e:
-            print(f"Ошибка прелоада для {symbol}: {e}")
+            print(f"Ошибка прелоада для {symbol}: {e}", flush=True)
             continue
 
     conn.commit()
-    print(f" История загружена: добавлено {total_records} записей.")
+    print(f" История загружена: добавлено {total_records} записей.", flush=True)
 
 
 
 def check_market_open():
     if DATA_MODE != "REAL": return
     
-    print("\nПРОВЕРКА СТАТУСА МОСБИРЖИ...")
+    print("\nПРОВЕРКА СТАТУСА МОСБИРЖИ...", flush=True)
     prices = get_real_prices_batch()
     
     if not prices or all(p is None for p in prices.values()):
-        print("РЫНОК ЗАКРЫТ (Или нет данных)")
-        print("ВНИМАНИЕ: Система переключается в режим АВТО-СИМУЛЯЦИИ.")
-        print("Цены будут генерироваться алгоритмом Random Walk.\n")
+        print("РЫНОК ЗАКРЫТ (Или нет данных)", flush=True)
+        print("ВНИМАНИЕ: Система переключается в режим АВТО-СИМУЛЯЦИИ.", flush=True)
+        print("Цены будут генерироваться алгоритмом Random Walk.\n", flush=True)
     else:
-        print("РЫНОК ОТКРЫТ. ПОЛУЧАЕМ РЕАЛЬНЫЕ ДАННЫЕ\n")
+        print("РЫНОК ОТКРЫТ. ПОЛУЧАЕМ РЕАЛЬНЫЕ ДАННЫЕ\n", flush=True)
 
 def simulate_step(symbol):
     current = MEMORY_PRICES.get(symbol, 100.0)
@@ -215,7 +215,7 @@ def simulate_step(symbol):
     return new_price
 
 def main():
-    print(f"Генератор запущен. Режим данных: {DATA_MODE}")
+    print(f"Генератор запущен. Режим данных: {DATA_MODE}", flush=True)
     
     conn = get_db_connection()
     conn.autocommit = True 
@@ -229,7 +229,7 @@ def main():
 
     while True:
         if (datetime.now() - LAST_REFRESH_TIME).total_seconds() > REFRESH_INTERVAL_SEC:
-            print("Плановое обновление списка акций...")
+            print("Плановое обновление списка акций...", flush=True)
             init_market_data(conn)
             check_market_open()
 
@@ -261,7 +261,7 @@ def main():
              first_ticker = WATCHLIST[0]
              src = "MOEX" if real_data.get(first_ticker) else "SIM"
              current_price = MEMORY_PRICES[first_ticker]
-             print(f"Пакет обработан. {first_ticker}: {current_price:.2f}")
+             print(f"Пакет обработан. {first_ticker}: {current_price:.2f}", flush=True)
 
         time.sleep(60)
 
