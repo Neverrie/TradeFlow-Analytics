@@ -1,5 +1,5 @@
 x-redash-service: &redash-service
-  image: redash/redash:10.1.0.b50633
+  image: redash/redash:latest
   env_file: .env
   restart: always
   networks:
@@ -42,13 +42,13 @@ services:
         condition: service_completed_successfully
 
   redis:
-    image: redis:5.0-alpine
+    image: redis:7.0-alpine
     restart: always
     networks:
       - tradeflow_net
 
   postgres:
-    image: postgres:13-alpine
+    image: postgres:18
     env_file: .env
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
