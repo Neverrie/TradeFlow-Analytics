@@ -1,0 +1,616 @@
+{
+    "id": 1,
+    "slug": "tradeflow-analytics",
+    "name": "TradeFlow Analytics",
+    "user_id": 1,
+    "user": {
+        "id": 1,
+        "name": "TradeFlow DB",
+        "email": "admin@admin.com",
+        "profile_image_url": "https://www.gravatar.com/avatar/64e1b8d34f425d19e1ee2ea7236d3028?s=40&d=identicon"
+    },
+    "layout": [],
+    "dashboard_filters_enabled": false,
+    "widgets": [
+        {
+            "id": 1,
+            "width": 1,
+            "options": {
+                "parameterMappings": {},
+                "isHidden": false,
+                "position": {
+                    "autoHeight": false,
+                    "sizeX": 1,
+                    "sizeY": 5,
+                    "minSizeX": 1,
+                    "maxSizeX": 6,
+                    "minSizeY": 1,
+                    "maxSizeY": 1000,
+                    "col": 0,
+                    "row": 0
+                }
+            },
+            "dashboard_id": 1,
+            "text": "",
+            "updated_at": "2026-01-19T15:04:32.762Z",
+            "created_at": "2026-01-19T15:03:58.175Z",
+            "visualization": {
+                "id": 9,
+                "type": "COUNTER",
+                "name": "Counter",
+                "description": "",
+                "options": {
+                    "counterLabel": "total_money",
+                    "counterColName": "total_money",
+                    "rowNumber": 1,
+                    "targetRowNumber": 1,
+                    "stringDecimal": 0,
+                    "stringDecChar": ".",
+                    "stringThouSep": ",",
+                    "tooltipFormat": "0,0.000"
+                },
+                "updated_at": "2026-01-19T15:04:03.961Z",
+                "created_at": "2026-01-19T15:03:14.032Z",
+                "query": {
+                    "id": 5,
+                    "latest_query_data_id": 27,
+                    "name": "Global KPI",
+                    "description": null,
+                    "query": "SELECT \r\n    COUNT(*) as trades_count,\r\n    SUM(total_cost) as total_money\r\nFROM trades\r\nWHERE timestamp >= NOW() - INTERVAL '24 hours'",
+                    "query_hash": "574f9196fdbd56b3461eb1c91991155d",
+                    "schedule": null,
+                    "api_key": "1Zr5j6K5IYHo5c5HXfv2OyIMLawgRTOdBaPyNweA",
+                    "is_archived": false,
+                    "is_draft": false,
+                    "updated_at": "2026-01-19T15:03:34.733Z",
+                    "created_at": "2026-01-19T15:02:51.910Z",
+                    "data_source_id": 1,
+                    "options": {
+                        "apply_auto_limit": false,
+                        "parameters": []
+                    },
+                    "version": 1,
+                    "tags": [],
+                    "is_safe": true,
+                    "user": {
+                        "id": 1,
+                        "name": "TradeFlow DB",
+                        "email": "admin@admin.com",
+                        "profile_image_url": "https://www.gravatar.com/avatar/64e1b8d34f425d19e1ee2ea7236d3028?s=40&d=identicon",
+                        "groups": [
+                            1,
+                            2
+                        ],
+                        "updated_at": "2026-01-19T15:27:32.586Z",
+                        "created_at": "2026-01-19T14:58:00.001Z",
+                        "disabled_at": null,
+                        "is_disabled": false,
+                        "active_at": "2026-01-19T15:27:06Z",
+                        "is_invitation_pending": false,
+                        "is_email_verified": true,
+                        "auth_type": "password"
+                    },
+                    "last_modified_by": {
+                        "id": 1,
+                        "name": "TradeFlow DB",
+                        "email": "admin@admin.com",
+                        "profile_image_url": "https://www.gravatar.com/avatar/64e1b8d34f425d19e1ee2ea7236d3028?s=40&d=identicon",
+                        "groups": [
+                            1,
+                            2
+                        ],
+                        "updated_at": "2026-01-19T15:27:32.586Z",
+                        "created_at": "2026-01-19T14:58:00.001Z",
+                        "disabled_at": null,
+                        "is_disabled": false,
+                        "active_at": "2026-01-19T15:27:06Z",
+                        "is_invitation_pending": false,
+                        "is_email_verified": true,
+                        "auth_type": "password"
+                    }
+                }
+            }
+        },
+        {
+            "id": 3,
+            "width": 1,
+            "options": {
+                "parameterMappings": {},
+                "isHidden": false,
+                "position": {
+                    "autoHeight": false,
+                    "sizeX": 1,
+                    "sizeY": 5,
+                    "minSizeX": 1,
+                    "maxSizeX": 6,
+                    "minSizeY": 1,
+                    "maxSizeY": 1000,
+                    "col": 1,
+                    "row": 0
+                }
+            },
+            "dashboard_id": 1,
+            "text": "",
+            "updated_at": "2026-01-19T15:04:33.637Z",
+            "created_at": "2026-01-19T15:04:11.309Z",
+            "visualization": {
+                "id": 10,
+                "type": "COUNTER",
+                "name": "Counter",
+                "description": "",
+                "options": {
+                    "counterLabel": "trades_count",
+                    "counterColName": "trades_count",
+                    "rowNumber": 1,
+                    "targetRowNumber": 1,
+                    "stringDecimal": 0,
+                    "stringDecChar": ".",
+                    "stringThouSep": ",",
+                    "tooltipFormat": "0,0.000"
+                },
+                "updated_at": "2026-01-19T15:04:11.309Z",
+                "created_at": "2026-01-19T15:03:29.659Z",
+                "query": {
+                    "id": 5,
+                    "latest_query_data_id": 27,
+                    "name": "Global KPI",
+                    "description": null,
+                    "query": "SELECT \r\n    COUNT(*) as trades_count,\r\n    SUM(total_cost) as total_money\r\nFROM trades\r\nWHERE timestamp >= NOW() - INTERVAL '24 hours'",
+                    "query_hash": "574f9196fdbd56b3461eb1c91991155d",
+                    "schedule": null,
+                    "api_key": "1Zr5j6K5IYHo5c5HXfv2OyIMLawgRTOdBaPyNweA",
+                    "is_archived": false,
+                    "is_draft": false,
+                    "updated_at": "2026-01-19T15:03:34.733Z",
+                    "created_at": "2026-01-19T15:02:51.910Z",
+                    "data_source_id": 1,
+                    "options": {
+                        "apply_auto_limit": false,
+                        "parameters": []
+                    },
+                    "version": 1,
+                    "tags": [],
+                    "is_safe": true,
+                    "user": {
+                        "id": 1,
+                        "name": "TradeFlow DB",
+                        "email": "admin@admin.com",
+                        "profile_image_url": "https://www.gravatar.com/avatar/64e1b8d34f425d19e1ee2ea7236d3028?s=40&d=identicon",
+                        "groups": [
+                            1,
+                            2
+                        ],
+                        "updated_at": "2026-01-19T15:27:32.586Z",
+                        "created_at": "2026-01-19T14:58:00.001Z",
+                        "disabled_at": null,
+                        "is_disabled": false,
+                        "active_at": "2026-01-19T15:27:06Z",
+                        "is_invitation_pending": false,
+                        "is_email_verified": true,
+                        "auth_type": "password"
+                    },
+                    "last_modified_by": {
+                        "id": 1,
+                        "name": "TradeFlow DB",
+                        "email": "admin@admin.com",
+                        "profile_image_url": "https://www.gravatar.com/avatar/64e1b8d34f425d19e1ee2ea7236d3028?s=40&d=identicon",
+                        "groups": [
+                            1,
+                            2
+                        ],
+                        "updated_at": "2026-01-19T15:27:32.586Z",
+                        "created_at": "2026-01-19T14:58:00.001Z",
+                        "disabled_at": null,
+                        "is_disabled": false,
+                        "active_at": "2026-01-19T15:27:06Z",
+                        "is_invitation_pending": false,
+                        "is_email_verified": true,
+                        "auth_type": "password"
+                    }
+                }
+            }
+        },
+        {
+            "id": 4,
+            "width": 1,
+            "options": {
+                "parameterMappings": {},
+                "isHidden": false,
+                "position": {
+                    "autoHeight": false,
+                    "sizeX": 2,
+                    "sizeY": 14,
+                    "minSizeX": 2,
+                    "maxSizeX": 6,
+                    "minSizeY": 1,
+                    "maxSizeY": 1000,
+                    "col": 0,
+                    "row": 5
+                }
+            },
+            "dashboard_id": 1,
+            "text": "",
+            "updated_at": "2026-01-19T15:07:17.092Z",
+            "created_at": "2026-01-19T15:04:14.982Z",
+            "visualization": {
+                "id": 6,
+                "type": "TABLE",
+                "name": "Table",
+                "description": "",
+                "options": {},
+                "updated_at": "2026-01-19T15:04:14.982Z",
+                "created_at": "2026-01-19T15:01:56.911Z",
+                "query": {
+                    "id": 4,
+                    "latest_query_data_id": 28,
+                    "name": "Live Tape",
+                    "description": null,
+                    "query": "SELECT \r\n    to_char(timestamp, 'HH24:MI:SS') as time,\r\n    symbol,\r\n    price,\r\n    quantity,\r\n    total_cost\r\nFROM trades\r\nORDER BY timestamp DESC\r\nLIMIT 15",
+                    "query_hash": "4f8e9822100e38f41ac151a64e87e963",
+                    "schedule": null,
+                    "api_key": "x4TLIjfl6VTOcB6vq9dFHdzQyJlF6UkYXPVRFG0F",
+                    "is_archived": false,
+                    "is_draft": false,
+                    "updated_at": "2026-01-19T15:02:18.254Z",
+                    "created_at": "2026-01-19T15:01:56.911Z",
+                    "data_source_id": 1,
+                    "options": {
+                        "apply_auto_limit": false,
+                        "parameters": []
+                    },
+                    "version": 1,
+                    "tags": [],
+                    "is_safe": true,
+                    "user": {
+                        "id": 1,
+                        "name": "TradeFlow DB",
+                        "email": "admin@admin.com",
+                        "profile_image_url": "https://www.gravatar.com/avatar/64e1b8d34f425d19e1ee2ea7236d3028?s=40&d=identicon",
+                        "groups": [
+                            1,
+                            2
+                        ],
+                        "updated_at": "2026-01-19T15:27:32.586Z",
+                        "created_at": "2026-01-19T14:58:00.001Z",
+                        "disabled_at": null,
+                        "is_disabled": false,
+                        "active_at": "2026-01-19T15:27:06Z",
+                        "is_invitation_pending": false,
+                        "is_email_verified": true,
+                        "auth_type": "password"
+                    },
+                    "last_modified_by": {
+                        "id": 1,
+                        "name": "TradeFlow DB",
+                        "email": "admin@admin.com",
+                        "profile_image_url": "https://www.gravatar.com/avatar/64e1b8d34f425d19e1ee2ea7236d3028?s=40&d=identicon",
+                        "groups": [
+                            1,
+                            2
+                        ],
+                        "updated_at": "2026-01-19T15:27:32.586Z",
+                        "created_at": "2026-01-19T14:58:00.001Z",
+                        "disabled_at": null,
+                        "is_disabled": false,
+                        "active_at": "2026-01-19T15:27:06Z",
+                        "is_invitation_pending": false,
+                        "is_email_verified": true,
+                        "auth_type": "password"
+                    }
+                }
+            }
+        },
+        {
+            "id": 7,
+            "width": 1,
+            "options": {
+                "parameterMappings": {
+                    "Stock": {
+                        "name": "Stock",
+                        "type": "dashboard-level",
+                        "mapTo": "Stock",
+                        "value": null,
+                        "title": ""
+                    }
+                },
+                "isHidden": false,
+                "position": {
+                    "autoHeight": false,
+                    "sizeX": 3,
+                    "sizeY": 8,
+                    "minSizeX": 1,
+                    "maxSizeX": 6,
+                    "minSizeY": 5,
+                    "maxSizeY": 1000,
+                    "col": 2,
+                    "row": 0
+                }
+            },
+            "dashboard_id": 1,
+            "text": "",
+            "updated_at": "2026-01-19T15:05:16.313Z",
+            "created_at": "2026-01-19T15:05:12.163Z",
+            "visualization": {
+                "id": 3,
+                "type": "CHART",
+                "name": "Chart",
+                "description": "",
+                "options": {
+                    "globalSeriesType": "line",
+                    "sortX": true,
+                    "legend": {
+                        "enabled": true,
+                        "placement": "auto",
+                        "traceorder": "normal"
+                    },
+                    "xAxis": {
+                        "type": "-",
+                        "labels": {
+                            "enabled": true
+                        }
+                    },
+                    "yAxis": [
+                        {
+                            "type": "linear"
+                        },
+                        {
+                            "type": "linear",
+                            "opposite": true
+                        }
+                    ],
+                    "alignYAxesAtZero": false,
+                    "error_y": {
+                        "type": "data",
+                        "visible": true
+                    },
+                    "series": {
+                        "stacking": null,
+                        "error_y": {
+                            "type": "data",
+                            "visible": true
+                        }
+                    },
+                    "seriesOptions": {},
+                    "valuesOptions": {},
+                    "columnMapping": {
+                        "timestamp": "x",
+                        "price": "y"
+                    },
+                    "direction": {
+                        "type": "counterclockwise"
+                    },
+                    "sizemode": "diameter",
+                    "coefficient": 1,
+                    "numberFormat": "0,0[.]00000",
+                    "percentFormat": "0[.]00%",
+                    "textFormat": "",
+                    "missingValuesAsZero": true,
+                    "showDataLabels": false,
+                    "dateTimeFormat": "DD/MM/YY HH:mm",
+                    "swappedAxes": false
+                },
+                "updated_at": "2026-01-19T15:05:12.163Z",
+                "created_at": "2026-01-19T14:59:08.672Z",
+                "query": {
+                    "id": 2,
+                    "latest_query_data_id": null,
+                    "name": "Market Dynamics (3h)",
+                    "description": null,
+                    "query": "SELECT \r\n    timestamp,\r\n    symbol,\r\n    price\r\nFROM trades\r\nWHERE timestamp >= NOW() - INTERVAL '3 hour'\r\n  AND symbol = '{{ Stock }}'  \r\nORDER BY timestamp ASC",
+                    "query_hash": "e558fa29a4420c516a69951afb5bbcb7",
+                    "schedule": null,
+                    "api_key": "CUEND8ZS945OfeCYuYsR1vFjOGeKf0Nr7iauEXp1",
+                    "is_archived": false,
+                    "is_draft": false,
+                    "updated_at": "2026-01-19T15:00:14.518Z",
+                    "created_at": "2026-01-19T14:58:55.269Z",
+                    "data_source_id": 1,
+                    "options": {
+                        "apply_auto_limit": false,
+                        "parameters": [
+                            {
+                                "title": "Stock",
+                                "name": "Stock",
+                                "type": "query",
+                                "global": false,
+                                "locals": [],
+                                "queryId": 1,
+                                "value": "ASTR"
+                            }
+                        ]
+                    },
+                    "version": 1,
+                    "tags": [],
+                    "is_safe": true,
+                    "user": {
+                        "id": 1,
+                        "name": "TradeFlow DB",
+                        "email": "admin@admin.com",
+                        "profile_image_url": "https://www.gravatar.com/avatar/64e1b8d34f425d19e1ee2ea7236d3028?s=40&d=identicon",
+                        "groups": [
+                            1,
+                            2
+                        ],
+                        "updated_at": "2026-01-19T15:27:32.586Z",
+                        "created_at": "2026-01-19T14:58:00.001Z",
+                        "disabled_at": null,
+                        "is_disabled": false,
+                        "active_at": "2026-01-19T15:27:06Z",
+                        "is_invitation_pending": false,
+                        "is_email_verified": true,
+                        "auth_type": "password"
+                    },
+                    "last_modified_by": {
+                        "id": 1,
+                        "name": "TradeFlow DB",
+                        "email": "admin@admin.com",
+                        "profile_image_url": "https://www.gravatar.com/avatar/64e1b8d34f425d19e1ee2ea7236d3028?s=40&d=identicon",
+                        "groups": [
+                            1,
+                            2
+                        ],
+                        "updated_at": "2026-01-19T15:27:32.586Z",
+                        "created_at": "2026-01-19T14:58:00.001Z",
+                        "disabled_at": null,
+                        "is_disabled": false,
+                        "active_at": "2026-01-19T15:27:06Z",
+                        "is_invitation_pending": false,
+                        "is_email_verified": true,
+                        "auth_type": "password"
+                    }
+                }
+            }
+        },
+        {
+            "id": 8,
+            "width": 1,
+            "options": {
+                "parameterMappings": {},
+                "isHidden": false,
+                "position": {
+                    "autoHeight": false,
+                    "sizeX": 3,
+                    "sizeY": 8,
+                    "minSizeX": 1,
+                    "maxSizeX": 6,
+                    "minSizeY": 5,
+                    "maxSizeY": 1000,
+                    "col": 2,
+                    "row": 8
+                }
+            },
+            "dashboard_id": 1,
+            "text": "",
+            "updated_at": "2026-01-19T15:07:48.376Z",
+            "created_at": "2026-01-19T15:07:48.347Z",
+            "visualization": {
+                "id": 5,
+                "type": "CHART",
+                "name": "Chart",
+                "description": "",
+                "options": {
+                    "globalSeriesType": "column",
+                    "sortX": true,
+                    "legend": {
+                        "enabled": true,
+                        "placement": "auto",
+                        "traceorder": "normal"
+                    },
+                    "xAxis": {
+                        "type": "-",
+                        "labels": {
+                            "enabled": true
+                        }
+                    },
+                    "yAxis": [
+                        {
+                            "type": "linear"
+                        },
+                        {
+                            "type": "linear",
+                            "opposite": true
+                        }
+                    ],
+                    "alignYAxesAtZero": false,
+                    "error_y": {
+                        "type": "data",
+                        "visible": true
+                    },
+                    "series": {
+                        "stacking": null,
+                        "error_y": {
+                            "type": "data",
+                            "visible": true
+                        }
+                    },
+                    "seriesOptions": {},
+                    "valuesOptions": {},
+                    "columnMapping": {
+                        "symbol": "x",
+                        "volume": "y"
+                    },
+                    "direction": {
+                        "type": "counterclockwise"
+                    },
+                    "sizemode": "diameter",
+                    "coefficient": 1,
+                    "numberFormat": "0,0[.]00000",
+                    "percentFormat": "0[.]00%",
+                    "textFormat": "",
+                    "missingValuesAsZero": true,
+                    "showDataLabels": false,
+                    "dateTimeFormat": "DD/MM/YY HH:mm"
+                },
+                "updated_at": "2026-01-19T15:07:48.347Z",
+                "created_at": "2026-01-19T15:01:24.252Z",
+                "query": {
+                    "id": 3,
+                    "latest_query_data_id": 30,
+                    "name": "Top Volume Leaders",
+                    "description": null,
+                    "query": "SELECT \r\n    symbol,\r\n    SUM(total_cost) as volume\r\nFROM trades\r\nWHERE timestamp >= NOW() - INTERVAL '1 hour'\r\nGROUP BY symbol\r\nORDER BY volume DESC\r\nLIMIT 10",
+                    "query_hash": "782938f3c1a3f3a3f1f5f32c9a4bb2a4",
+                    "schedule": null,
+                    "api_key": "ea4edHQCddjGEfjIrx1GY0Zj47IWw6NCOdXjZhji",
+                    "is_archived": false,
+                    "is_draft": false,
+                    "updated_at": "2026-01-19T15:01:28.089Z",
+                    "created_at": "2026-01-19T15:00:57.288Z",
+                    "data_source_id": 1,
+                    "options": {
+                        "apply_auto_limit": false,
+                        "parameters": []
+                    },
+                    "version": 1,
+                    "tags": [],
+                    "is_safe": true,
+                    "user": {
+                        "id": 1,
+                        "name": "TradeFlow DB",
+                        "email": "admin@admin.com",
+                        "profile_image_url": "https://www.gravatar.com/avatar/64e1b8d34f425d19e1ee2ea7236d3028?s=40&d=identicon",
+                        "groups": [
+                            1,
+                            2
+                        ],
+                        "updated_at": "2026-01-19T15:27:32.586Z",
+                        "created_at": "2026-01-19T14:58:00.001Z",
+                        "disabled_at": null,
+                        "is_disabled": false,
+                        "active_at": "2026-01-19T15:27:06Z",
+                        "is_invitation_pending": false,
+                        "is_email_verified": true,
+                        "auth_type": "password"
+                    },
+                    "last_modified_by": {
+                        "id": 1,
+                        "name": "TradeFlow DB",
+                        "email": "admin@admin.com",
+                        "profile_image_url": "https://www.gravatar.com/avatar/64e1b8d34f425d19e1ee2ea7236d3028?s=40&d=identicon",
+                        "groups": [
+                            1,
+                            2
+                        ],
+                        "updated_at": "2026-01-19T15:27:32.586Z",
+                        "created_at": "2026-01-19T14:58:00.001Z",
+                        "disabled_at": null,
+                        "is_disabled": false,
+                        "active_at": "2026-01-19T15:27:06Z",
+                        "is_invitation_pending": false,
+                        "is_email_verified": true,
+                        "auth_type": "password"
+                    }
+                }
+            }
+        }
+    ],
+    "options": {},
+    "is_archived": false,
+    "is_draft": false,
+    "tags": [],
+    "updated_at": "2026-01-19T15:08:00.494Z",
+    "created_at": "2026-01-19T15:03:49.513Z",
+    "version": 2,
+    "is_favorite": false,
+    "can_edit": true
+}
