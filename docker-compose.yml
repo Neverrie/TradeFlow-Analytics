@@ -1,5 +1,6 @@
 x-redash-service: &redash-service
   image: redash/redash:latest
+  platform: linux/amd64
   env_file: .env
   restart: always
   networks:
@@ -12,7 +13,9 @@ services:
     restart: "no"
     depends_on:
       redis:
-        condition: service_started
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
 
   server:
     <<: *redash-service
@@ -25,7 +28,9 @@ services:
       redash-init:
         condition: service_completed_successfully
       redis:
-        condition: service_started
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
 
   scheduler:
     <<: *redash-service
@@ -46,6 +51,11 @@ services:
     restart: always
     networks:
       - tradeflow_net
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 5s
+      timeout: 3s
+      retries: 5
 
   postgres:
     image: postgres:18
@@ -60,6 +70,11 @@ services:
     restart: always
     networks:
       - tradeflow_net
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   generator:
     build: ./generator
@@ -67,6 +82,9 @@ services:
     networks:
       - tradeflow_net
     restart: always
+    depends_on:
+      postgres:
+        condition: service_healthy
 
 networks:
   tradeflow_net:
