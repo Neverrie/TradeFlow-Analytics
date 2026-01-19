@@ -76,7 +76,7 @@ docker-compose up -d --build
 echo.
 echo …Š’ ‡€“™…
 echo.
-echo  Redash UI:   http://localhost:5000
+echo  Redash UI:   http://localhost:5001
 echo.
 echo  ˆ‘‹œ‡“‰’… ’ˆ „€›… „‹Ÿ „Š‹—…ˆŸ (Data Source):
 echo ---------------------------------------------------

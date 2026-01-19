@@ -73,7 +73,7 @@ docker-compose up -d --build
 echo ""
 echo -e "${GREEN} ПРОЕКТ ЗАПУЩЕН!${NC}"
 echo ""
-echo -e " Redash:    http://localhost:5000"
+echo -e " Redash:    http://localhost:5001"
 echo ""
 echo -e "${YELLOW} ИСПОЛЬЗУЙТЕ ЭТИ ДАННЫЕ ДЛЯ ПОДКЛЮЧЕНИЯ (Data Source):${NC}"
 echo "   Host:      postgres"
